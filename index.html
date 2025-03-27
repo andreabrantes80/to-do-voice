@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List com Reconhecimento de Voz e Alarme</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Lista de Tarefas com Voz e Alarme</h1>
+        <div class="input-container">
+            <button id="startButton">🎙️ Falar Tarefa</button>
+            <input type="datetime-local" id="alarmInput" class="alarm-input">
+        </div>
+        <div id="output" class="output">Fale para adicionar uma tarefa...</div>
+        <h2>Suas Tarefas</h2>
+        <ul id="todoList" class="todo-list"></ul>
+    </div>
+    <audio id="alarmSound" src="ryu-stage.mp3"></audio>
+    <script src="script.js"></script>
+</body>
+</html>
