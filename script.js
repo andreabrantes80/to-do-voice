@@ -1,15 +1,52 @@
+(function () {
+  emailjs.init("RrGeb9jYdXaljYYhO"); // Substitua "user_123456" pelo seu userID do EmailJS
+})();
+
 // Referências aos elementos HTML
 const startButton = document.getElementById("startButton");
 const outputDiv = document.getElementById("output");
 const todoList = document.getElementById("todoList");
 const alarmInput = document.getElementById("alarmInput");
 const alarmSound = document.getElementById("alarmSound");
+const emailInput = document.getElementById("emailInput");
+const saveEmailButton = document.getElementById("saveEmailButton");
+const clearEmailButton = document.getElementById("clearEmailButton");
 
 // Array para armazenar as tarefas
 let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
 
 let alarmTimeout = null;
 let isAlarmActive = false;
+let userEmail = "";
+
+
+// Carregar o e-mail do localStorage apenas para preencher o campo (mas não usá-lo diretamente)
+const savedEmail = localStorage.getItem("userEmail") || "";
+if (savedEmail) {
+  emailInput.value = savedEmail; // Preenche o campo com o e-mail salvo, mas não o usa até que o usuário clique em "Salvar E-mail"
+}
+
+// Salvar o e-mail no localStorage
+saveEmailButton.addEventListener("click", () => {
+  const email = emailInput.value.trim();
+  if (email && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    localStorage.setItem("userEmail", email);
+    userEmail = email;
+    alert("E-mail salvo com sucesso!");
+  } else {
+    alert("Por favor, insira um e-mail válido (ex.: seuemail@exemplo.com).");
+  }
+});
+
+// Limpar o e-mail salvo (opcional, se você adicionar o botão no HTML)
+if (clearEmailButton) {
+  clearEmailButton.addEventListener("click", () => {
+    localStorage.removeItem("userEmail"); // Remove o e-mail do localStorage
+    userEmail = ""; // Limpa a variável userEmail
+    emailInput.value = ""; // Limpa o campo de input
+    alert("E-mail removido com sucesso!");
+  });
+}
 
 // Renderizar as tarefas ao carregar a página
 renderTasks();
@@ -197,6 +234,33 @@ function triggerAlarm(task) {
         });
       }
     });
+  }
+
+  if (userEmail) {
+    const templateParams = {
+      to_email: userEmail,
+      task_text: task.text,
+      alarm_date: task.alarm
+        ? new Date(task.alarm).toLocaleString("pt-BR")
+        : "Sem data definida",
+    };
+    console.log("Enviando e-mail para:", userEmail); // Log para depuração
+    emailjs.send("service_vwpxkul", "template_zk93qhf", templateParams).then(
+      () => {
+        console.log("E-mail enviado com sucesso!");
+      },
+      (error) => {
+        console.log("Erro ao enviar o e-mail:", error);
+        alert(
+          "Erro ao enviar o e-mail. Verifique o console para mais detalhes."
+        );
+      }
+    );
+  } else {
+    console.log(
+      "E-mail do usuário não configurado. Não foi possível enviar o e-mail."
+    );
+    alert("Por favor, salve um e-mail antes de enviar notificações.");
   }
 
   // Para o som após 15 segundos

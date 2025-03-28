@@ -31,6 +31,40 @@ h1 {
     margin-bottom: 10px;
 }
 
+.email-container {
+    margin: 10px 0;
+}
+
+.email-container label {
+    display: block;
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 5px;
+}
+
+.email-container input {
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: 200px;
+}
+
+.email-container button {
+    padding: 8px 15px;
+    font-size: 14px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.email-container button:hover {
+    background-color: #45a049;
+}
+
 button {
     padding: 10px 20px;
     font-size: 16px;

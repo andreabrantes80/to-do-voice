@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>To-Do List com Reconhecimento de Voz e Alarme</title>
     <link rel="stylesheet" href="styles.css">
+   <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 </head>
 <body>
     <div class="container">
@@ -12,6 +13,12 @@
         <div class="input-container">
             <button id="startButton">🎙️ Falar Tarefa</button>
             <input type="datetime-local" id="alarmInput" class="alarm-input">
+        </div>
+        <div class="email-container">
+            <label for="emailInput">Seu e-mail para notificações:</label>
+            <button id="saveEmailButton">Salvar E-mail</button>
+            <button id="clearEmailButton">Limpar E-mail</button> <!-- Botão para limpar o e-mail -->
+            <input type="email" id="emailInput" placeholder="seuemail@exemplo.com">
         </div>
         <div id="output" class="output">Fale para adicionar uma tarefa...</div>
         <h2>Suas Tarefas</h2>
